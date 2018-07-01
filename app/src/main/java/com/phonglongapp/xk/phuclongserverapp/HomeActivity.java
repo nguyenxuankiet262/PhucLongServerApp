@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -45,6 +46,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.phonglongapp.xk.phuclongserverapp.Adapter.CategoryAdapter;
+import com.phonglongapp.xk.phuclongserverapp.Common.Common;
+import com.phonglongapp.xk.phuclongserverapp.Interface.OnActivityResult;
 import com.phonglongapp.xk.phuclongserverapp.Model.Banner;
 import com.phonglongapp.xk.phuclongserverapp.Model.Category;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -133,6 +136,7 @@ public class HomeActivity extends AppCompatActivity
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Common.checkChooseImageFromAdapter = false;
                         Intent gallery = new Intent();
                         gallery.setType("image/*");
                         gallery.setAction(Intent.ACTION_GET_CONTENT);
@@ -253,12 +257,29 @@ public class HomeActivity extends AppCompatActivity
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                Category cate = dataSnapshot.getValue(Category.class);
+                cate.setId(dataSnapshot.getKey());
+                for(int i = 0; i < categoryArrayList.size();i++){
+                    if(categoryArrayList.get(i).getId().equals(cate.getId())){
+                        categoryArrayList.remove(i);
+                        categoryArrayList.add(i,cate);
+                        adapter.notifyDataSetChanged();
+                        break;
+                    }
+                }
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                Category cate = dataSnapshot.getValue(Category.class);
+                cate.setId(dataSnapshot.getKey());
+                for(int i = 0; i < categoryArrayList.size();i++){
+                    if(categoryArrayList.get(i).getId().equals(cate.getId())){
+                        categoryArrayList.remove(i);
+                        adapter.notifyDataSetChanged();
+                        break;
+                    }
+                }
             }
 
             @Override
@@ -340,19 +361,24 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GALLERY_PICK && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            try {
-                imageUri = data.getData();
-                InputStream imageStream = null;
-                imageStream = getContentResolver().openInputStream(imageUri);
-                Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                imageView.setImageBitmap(selectedImage);
+        if(Common.checkChooseImageFromAdapter == true) {
+            adapter.onActivityResult(requestCode, resultCode, data);
+        }
+        else{
+            if (requestCode == GALLERY_PICK && resultCode == RESULT_OK && data != null && data.getData() != null) {
+                try {
+                    imageUri = data.getData();
+                    InputStream imageStream = null;
+                    imageStream = getContentResolver().openInputStream(imageUri);
+                    Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    imageView.setImageBitmap(selectedImage);
 
-                imageUri = data.getData();
+                    imageUri = data.getData();
 
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Lỗi chọn ảnh", Toast.LENGTH_LONG).show();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "Lỗi chọn ảnh", Toast.LENGTH_LONG).show();
+                }
             }
         }
     }

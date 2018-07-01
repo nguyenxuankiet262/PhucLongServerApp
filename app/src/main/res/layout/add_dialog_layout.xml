@@ -20,7 +20,7 @@
         android:id="@+id/name_catelogy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:met_maxCharacters="20"
+        app:met_maxCharacters="40"
         app:met_textColor="@color/colorBlack"
         android:drawableLeft="@drawable/ic_edit_black_24dp"
         android:drawablePadding="5dp"
