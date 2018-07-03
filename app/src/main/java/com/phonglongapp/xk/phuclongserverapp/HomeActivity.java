@@ -102,6 +102,7 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Phúc Long Milk Tea");
 
         //Init Firebase;
         mStorageRef = firebaseStorage.getInstance().getReference();

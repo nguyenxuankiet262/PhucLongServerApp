@@ -4,25 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    tools:context=".DrinkActivity"
+    android:background="@color/colorWhite">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            app:titleTextAppearance="@style/CollapsedAppbar"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_drink"
+        app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:titleTextAppearance="@style/CollapsedAppbar"
+        >
 
+    </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_home" />
-
+    <android.support.v7.widget.RecyclerView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/listDrink"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="2dp"
+        android:scrollbars="none"
+        android:layout_below="@id/toolbar_drink">
+    </android.support.v7.widget.RecyclerView>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

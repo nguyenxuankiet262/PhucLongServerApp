@@ -33,6 +33,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.phonglongapp.xk.phuclongserverapp.Common.Common;
+import com.phonglongapp.xk.phuclongserverapp.DrinkActivity;
 import com.phonglongapp.xk.phuclongserverapp.HomeActivity;
 import com.phonglongapp.xk.phuclongserverapp.Interface.ItemClickListener;
 import com.phonglongapp.xk.phuclongserverapp.Interface.ItemLongClickListener;
@@ -112,7 +113,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> im
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onClick(View v, int position) {
-                Toast.makeText(context, "short", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, DrinkActivity.class);
+                intent.putExtra("CategoryId", categories.get(position).getId());
+                intent.putExtra("CategoryName",categories.get(position).getName());
+                context.startActivity(intent);
             }
         }, new ItemLongClickListener() {
             @Override
