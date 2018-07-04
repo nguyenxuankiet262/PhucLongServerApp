@@ -41,8 +41,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="15dp"
+                android:weightSum="2">
                 <ImageView
+                    android:layout_weight="1"
                     android:id="@+id/cold_drink_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -50,6 +52,7 @@
                     android:src="@drawable/ico_cold" />
 
                 <ImageView
+                    android:layout_weight="1"
                     android:id="@+id/hot_drink_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -81,6 +84,7 @@
                     android:id="@+id/price_drink"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:layout_alignParentBottom="true"
                     android:background="@drawable/text_rounded"
                     android:padding="2dp"

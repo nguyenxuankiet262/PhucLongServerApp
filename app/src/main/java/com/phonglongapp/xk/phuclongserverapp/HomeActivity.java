@@ -51,6 +51,7 @@ import com.phonglongapp.xk.phuclongserverapp.Interface.OnActivityResult;
 import com.phonglongapp.xk.phuclongserverapp.Model.Banner;
 import com.phonglongapp.xk.phuclongserverapp.Model.Category;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.squareup.leakcanary.LeakCanary;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -333,20 +334,11 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_order) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            Intent intent = new Intent(HomeActivity.this, OrderActivity.class);
+            startActivity(intent);
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

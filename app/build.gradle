@@ -50,6 +50,9 @@ dependencies {
     implementation 'com.daimajia.slider:library:1.1.5@aar'
     implementation 'com.ss.bannerslider:bannerslider:2.0.0'
 
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
