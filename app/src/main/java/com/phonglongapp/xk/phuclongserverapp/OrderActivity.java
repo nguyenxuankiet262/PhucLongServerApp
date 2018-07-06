@@ -74,29 +74,18 @@ public class OrderActivity extends AppCompatActivity {
 
     private void loadOrder(String s) {
         if(s.equals("0")) {
-            order.addValueEventListener(new ValueEventListener() {
+            order.orderByChild("status").equalTo("0").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    orderList.clear();
                     for (DataSnapshot post : dataSnapshot.getChildren()) {
-                        order.child(post.getKey()).orderByChild("status").equalTo("0").addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                orderList.clear();
-                                for (DataSnapshot post : dataSnapshot.getChildren()) {
-                                    Order temp = post.getValue(Order.class);
-                                    temp.setId(post.getKey());
-                                    //Toast.makeText(OrderActivity.this, temp.getId() +"\n" + temp.getName() + "\n" + temp.getStatus(), Toast.LENGTH_SHORT).show();
-                                    orderList.add(temp);
-                                }
-                                adapter.notifyDataSetChanged();
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
+                        Order temp = post.getValue(Order.class);
+                        temp.setId(post.getKey());
+                        //Toast.makeText(OrderActivity.this, temp.getId() +"\n" + temp.getName() + "\n" + temp.getStatus(), Toast.LENGTH_SHORT).show();
+                        orderList.add(temp);
                     }
+                    adapter.notifyDataSetChanged();
+
                 }
 
                 @Override
@@ -107,29 +96,18 @@ public class OrderActivity extends AppCompatActivity {
             list_Order.setAdapter(adapter);
         }
         else if (s.equals("1")){
-            order.addValueEventListener(new ValueEventListener() {
+            order.orderByChild("status").equalTo("1").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    orderList.clear();
                     for (DataSnapshot post : dataSnapshot.getChildren()) {
-                        order.child(post.getKey()).orderByChild("status").equalTo("1").addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                orderList.clear();
-                                for (DataSnapshot post : dataSnapshot.getChildren()) {
-                                    Order temp = post.getValue(Order.class);
-                                    temp.setId(post.getKey());
-                                    //Toast.makeText(OrderActivity.this, temp.getId() +"\n" + temp.getName() + "\n" + temp.getStatus(), Toast.LENGTH_SHORT).show();
-                                    orderList.add(temp);
-                                }
-                                adapter.notifyDataSetChanged();
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
+                        Order temp = post.getValue(Order.class);
+                        temp.setId(post.getKey());
+                        //Toast.makeText(OrderActivity.this, temp.getId() +"\n" + temp.getName() + "\n" + temp.getStatus(), Toast.LENGTH_SHORT).show();
+                        orderList.add(temp);
                     }
+                    adapter.notifyDataSetChanged();
+
                 }
 
                 @Override

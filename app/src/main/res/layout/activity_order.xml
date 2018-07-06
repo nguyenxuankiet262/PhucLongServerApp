@@ -6,6 +6,11 @@
     android:background="@color/colorWhite"
     android:layout_height="match_parent"
     tools:context=".OrderActivity">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bot_bar">
+    </FrameLayout>
     <android.support.v7.widget.RecyclerView
         android:layout_above="@id/bot_bar"
         android:id="@+id/order_list"

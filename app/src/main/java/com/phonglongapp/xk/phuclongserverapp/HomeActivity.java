@@ -50,6 +50,7 @@ import com.phonglongapp.xk.phuclongserverapp.Common.Common;
 import com.phonglongapp.xk.phuclongserverapp.Interface.OnActivityResult;
 import com.phonglongapp.xk.phuclongserverapp.Model.Banner;
 import com.phonglongapp.xk.phuclongserverapp.Model.Category;
+import com.phonglongapp.xk.phuclongserverapp.Service.ListenOrder;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -115,6 +116,9 @@ public class HomeActivity extends AppCompatActivity
         list_menu = findViewById(R.id.list_category);
         list_menu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         list_menu.setHasFixedSize(true);
+
+        Intent service = new Intent(HomeActivity.this, ListenOrder.class);
+        startService(service);
 
         //Set adapter
         adapter = new CategoryAdapter(this, categoryArrayList);

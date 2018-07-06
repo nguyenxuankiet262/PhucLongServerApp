@@ -1,7 +1,9 @@
 package com.phonglongapp.xk.phuclongserverapp.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,8 +40,21 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         holder.time_order.setText(Common.getTimeAgo(Long.parseLong(orderList.get(position).getId()),context));
         holder.id_order.setText("#"+orderList.get(position).getId());
-        if(orderList.get(position).getStatus().equals("Ordered")){
+        if(orderList.get(position).getStatus().equals("0")){
             holder.status_order.setText("New Order");
+            holder.status_order.setTextColor(ContextCompat.getColor(context,R.color.colorOpenStore));
+        }
+        if(orderList.get(position).getStatus().equals("1")){
+            holder.status_order.setText("On the way");
+            holder.status_order.setTextColor(ContextCompat.getColor(context,R.color.colorOTW));
+        }
+        if(orderList.get(position).getStatus().equals("2")){
+            holder.status_order.setText("Success");
+            holder.status_order.setTextColor(ContextCompat.getColor(context,R.color.colorSc));
+        }
+        if(orderList.get(position).getStatus().equals("3")){
+            holder.status_order.setText("Delete");
+            holder.status_order.setTextColor(ContextCompat.getColor(context,R.color.colorCancel));
         }
         holder.setItemClickListener(new ItemClickListener() {
             @Override
