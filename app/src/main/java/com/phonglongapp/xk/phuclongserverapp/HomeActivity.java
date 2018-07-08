@@ -352,6 +352,11 @@ public class HomeActivity extends AppCompatActivity
             Intent intent = new Intent(HomeActivity.this, OrderActivity.class);
             startActivity(intent);
         }
+        if (id == R.id.nav_comment) {
+            // Handle the camera action
+            Intent intent = new Intent(HomeActivity.this, CommentActivity.class);
+            startActivity(intent);
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

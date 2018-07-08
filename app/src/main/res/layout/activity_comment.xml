@@ -5,16 +5,11 @@
     android:layout_width="match_parent"
     android:background="@color/colorWhite"
     android:layout_height="match_parent"
-    tools:context=".OrderActivity">
-
-    <include layout="@layout/order_empty_layout" android:id="@+id/empty_order"
-        ></include>
-
-
+    tools:context=".CommentActivity">
 
     <android.support.v7.widget.RecyclerView
         android:layout_above="@id/bot_bar"
-        android:id="@+id/order_list"
+        android:id="@+id/comment_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
     <android.support.design.widget.BottomNavigationView
@@ -25,5 +20,5 @@
         app:itemBackground="@color/colorPrimaryDark"
         app:itemIconTint="@color/nav_bar_style"
         app:itemTextColor="@color/nav_bar_style"
-        app:menu="@menu/show_order_menu"></android.support.design.widget.BottomNavigationView>
+        app:menu="@menu/show_comment_menu"></android.support.design.widget.BottomNavigationView>
 </RelativeLayout>

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +34,8 @@ public class OrderActivity extends AppCompatActivity {
     //List
     List<Order> orderList;
 
+    RelativeLayout emptyOrder;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,8 @@ public class OrderActivity extends AppCompatActivity {
         orderList = new ArrayList<>();
         list_Order = findViewById(R.id.order_list);
         bottomNavigationView = findViewById(R.id.bot_bar);
+        emptyOrder = findViewById(R.id.empty_order);
+        emptyOrder.setVisibility(View.INVISIBLE);
 
         database = FirebaseDatabase.getInstance();
         order = database.getReference("Order");
@@ -85,6 +91,12 @@ public class OrderActivity extends AppCompatActivity {
                         orderList.add(temp);
                     }
                     adapter.notifyDataSetChanged();
+                    if(orderList.size() == 0){
+                        emptyOrder.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        emptyOrder.setVisibility(View.INVISIBLE);
+                    }
 
                 }
 
@@ -107,6 +119,68 @@ public class OrderActivity extends AppCompatActivity {
                         orderList.add(temp);
                     }
                     adapter.notifyDataSetChanged();
+                    if(orderList.size() == 0){
+                        emptyOrder.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        emptyOrder.setVisibility(View.INVISIBLE);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            list_Order.setAdapter(adapter);
+        }
+        else if(s.equals("2")){
+            order.orderByChild("status").equalTo("2").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    orderList.clear();
+                    for (DataSnapshot post : dataSnapshot.getChildren()) {
+                        Order temp = post.getValue(Order.class);
+                        temp.setId(post.getKey());
+                        //Toast.makeText(OrderActivity.this, temp.getId() +"\n" + temp.getName() + "\n" + temp.getStatus(), Toast.LENGTH_SHORT).show();
+                        orderList.add(temp);
+                    }
+                    adapter.notifyDataSetChanged();
+                    if(orderList.size() == 0){
+                        emptyOrder.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        emptyOrder.setVisibility(View.INVISIBLE);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            list_Order.setAdapter(adapter);
+        }
+        else if (s.equals("3")){
+            order.orderByChild("status").equalTo("3").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    orderList.clear();
+                    for (DataSnapshot post : dataSnapshot.getChildren()) {
+                        Order temp = post.getValue(Order.class);
+                        temp.setId(post.getKey());
+                        //Toast.makeText(OrderActivity.this, temp.getId() +"\n" + temp.getName() + "\n" + temp.getStatus(), Toast.LENGTH_SHORT).show();
+                        orderList.add(temp);
+                    }
+                    adapter.notifyDataSetChanged();
+                    if(orderList.size() == 0){
+                        emptyOrder.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        emptyOrder.setVisibility(View.INVISIBLE);
+                    }
 
                 }
 

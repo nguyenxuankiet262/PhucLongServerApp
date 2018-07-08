@@ -41,6 +41,8 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".CommentActivity"></activity>
     </application>
 
 </manifest>
