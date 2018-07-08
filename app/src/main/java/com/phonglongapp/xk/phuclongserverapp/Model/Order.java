@@ -11,13 +11,14 @@ public class Order {
     private String status;
     private String note;
     private String payment;
+    private String userID;
     List<Cart> cartList;
 
     public Order(){
 
     }
 
-    public Order(String id, String name, String address, String phone, String price, String status, String note, String payment, List<Cart> cartList) {
+    public Order(String id, String name, String address, String phone, String price, String status, String note, String payment, String userID, List<Cart> cartList) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -26,7 +27,16 @@ public class Order {
         this.status = status;
         this.note = note;
         this.payment = payment;
+        this.userID = userID;
         this.cartList = cartList;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public String getId() {

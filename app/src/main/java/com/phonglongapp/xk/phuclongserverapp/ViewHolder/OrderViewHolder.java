@@ -8,7 +8,7 @@ import com.phonglongapp.xk.phuclongserverapp.Interface.ItemClickListener;
 import com.phonglongapp.xk.phuclongserverapp.Interface.ItemLongClickListener;
 import com.phonglongapp.xk.phuclongserverapp.R;
 
-public class OrderViewHolder  extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
+public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
     public TextView id_order, time_order, status_order;
     ItemClickListener itemClickListener;
