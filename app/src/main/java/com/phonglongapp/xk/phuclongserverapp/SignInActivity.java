@@ -18,13 +18,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.phonglongapp.xk.phuclongserverapp.Common.Common;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class SignInActivity extends AppCompatActivity {
     private ImageView logoView;
-    private TextView contText;
     private Animation anim_alpha, anim_blink;
     private FirebaseAuth auth;
     //FirebaseDatabase
@@ -37,9 +37,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         logoView = findViewById(R.id.logo_image);
-        contText = findViewById(R.id.continueText);
         auth = FirebaseAuth.getInstance();
-        contText.setVisibility(View.INVISIBLE);
         anim_blink = new AlphaAnimation(0.0f, 1.0f);
         anim_blink.setDuration(20);
         anim_blink.setStartOffset(20);
@@ -54,8 +52,6 @@ public class SignInActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                contText.setVisibility(View.VISIBLE);
-                contText.startAnimation(anim_blink);
                 new Timer().schedule(new TimerTask() {
                     public void run() {
                         SignInActivity.this.runOnUiThread(new Runnable() {
@@ -83,11 +79,13 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    FirebaseUser current_user = auth.getCurrentUser();
+                    String uid = current_user.getUid();
+                    Common.id_admin = uid;
                     Intent mainIntent = new Intent(SignInActivity.this, HomeActivity.class);
                     startActivity(mainIntent);
                     finish();
                 }
-
             }
         });
     }

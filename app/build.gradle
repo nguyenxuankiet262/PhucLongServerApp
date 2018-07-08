@@ -28,6 +28,13 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
+    //Gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
     //Design
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
@@ -44,6 +51,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.0'
     implementation 'com.google.firebase:firebase-database:16.0.1'
     implementation 'com.google.firebase:firebase-auth:16.0.2'
+    implementation 'com.google.firebase:firebase-messaging:17.1.0'
 
     //Slider
     implementation 'com.nineoldandroids:library:2.4.0'

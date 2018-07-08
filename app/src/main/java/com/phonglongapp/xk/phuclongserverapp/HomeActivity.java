@@ -42,6 +42,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -50,7 +52,7 @@ import com.phonglongapp.xk.phuclongserverapp.Common.Common;
 import com.phonglongapp.xk.phuclongserverapp.Interface.OnActivityResult;
 import com.phonglongapp.xk.phuclongserverapp.Model.Banner;
 import com.phonglongapp.xk.phuclongserverapp.Model.Category;
-import com.phonglongapp.xk.phuclongserverapp.Service.ListenOrder;
+import com.phonglongapp.xk.phuclongserverapp.Model.Token;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -102,6 +104,13 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String token = instanceIdResult.getToken();
+                updateToken(token);
+            }
+        });
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Phúc Long Milk Tea");
@@ -117,8 +126,8 @@ public class HomeActivity extends AppCompatActivity
         list_menu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         list_menu.setHasFixedSize(true);
 
-        Intent service = new Intent(HomeActivity.this, ListenOrder.class);
-        startService(service);
+        //Intent service = new Intent(HomeActivity.this, ListenOrder.class);
+       // startService(service);
 
         //Set adapter
         adapter = new CategoryAdapter(this, categoryArrayList);
@@ -218,6 +227,13 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void updateToken(String t) {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference token = db.getReference("Token");
+        Token temp = new Token(t,true);
+        token.child(Common.id_admin).setValue(temp);
     }
 
     private void setupSlider() {

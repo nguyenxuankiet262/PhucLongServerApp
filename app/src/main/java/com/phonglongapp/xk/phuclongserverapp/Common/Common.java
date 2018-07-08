@@ -2,6 +2,9 @@ package com.phonglongapp.xk.phuclongserverapp.Common;
 
 import android.content.Context;
 
+import com.phonglongapp.xk.phuclongserverapp.Retrofit.APIService;
+import com.phonglongapp.xk.phuclongserverapp.Retrofit.RetrofitClient;
+
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -9,6 +12,14 @@ public class Common {
     public static boolean checkChooseImageFromAdapter = false;
     public static String ConvertIntToMoney(String money){
         return NumberFormat.getNumberInstance(Locale.US).format(Integer.parseInt(money)) + " VNĐ";
+    }
+
+    public static String id_admin;
+
+    private static final String BASE_URL = "https://fcm.googleapis.com/";
+
+    public static APIService getFCMService(){
+        return RetrofitClient.getClient(BASE_URL).create(APIService.class);
     }
 
     private static final int SECOND_MILLIS = 1000;
