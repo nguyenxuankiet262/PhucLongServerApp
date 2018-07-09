@@ -7,10 +7,24 @@
     android:layout_height="match_parent"
     tools:context=".CommentActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toobar_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="NEW FEEDBACK"
+        app:titleTextColor="@color/colorWhite"
+        android:background="@color/colorPrimary"
+        app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+        app:titleTextAppearance="@style/CollapsedAppbar"
+        >
+
+    </android.support.v7.widget.Toolbar>
+
     <include layout="@layout/feedback_empty_layout" android:id="@+id/empty_feedback"
         ></include>
 
     <android.support.v7.widget.RecyclerView
+        android:layout_below="@id/toobar_feedback"
         android:layout_above="@id/bot_bar"
         android:id="@+id/comment_list"
         android:layout_width="match_parent"

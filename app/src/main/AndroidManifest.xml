@@ -32,7 +32,8 @@
             android:name=".DrinkActivity"
             android:parentActivityName=".HomeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".OrderActivity" />
+        <activity android:name=".OrderActivity"
+            android:parentActivityName=".HomeActivity"/>
 
         <service
             android:name=".Service.MyFirebaseMessaging"
@@ -42,7 +43,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".CommentActivity"></activity>
+        <activity android:name=".CommentActivity"
+            android:parentActivityName=".HomeActivity"></activity>
     </application>
 
 </manifest>
