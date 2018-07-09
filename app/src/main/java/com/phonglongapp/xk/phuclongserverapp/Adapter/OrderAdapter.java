@@ -141,7 +141,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
                         database = FirebaseDatabase.getInstance();
                         order = database.getReference("Order");
                         order.child(orderList.get(position).getId()).child("status").setValue("1");
-                        Toast.makeText(context, "Order #" + orderList.get(position).getId() + " đang được ship", Toast.LENGTH_SHORT).show();
                         sendNoti(orderList.get(position).getUserID(), orderList.get(position).getId(), alertDialog);
                     }
                 });
@@ -156,30 +155,33 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderViewHolder> {
         });
     }
 
-    private void sendNoti(String userID, final String id, AlertDialog alertDialog) {
+    private void sendNoti(final String userID, final String id, AlertDialog alertDialog) {
         DatabaseReference tokens = FirebaseDatabase.getInstance().getReference("Token");
-        tokens.child(userID).addValueEventListener(new ValueEventListener() {
+        tokens.orderByKey().equalTo(userID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Token serverToken = dataSnapshot.getValue(Token.class);
-                Notification notification = new Notification("Order #" + id + " đang được ship", "Phúc Long Coffee and Tea Express");
-                Sender content = new Sender(serverToken.getToken(), notification);
+                for(DataSnapshot post : dataSnapshot.getChildren()) {
+                    Token serverToken = post.getValue(Token.class);
+                    Notification notification = new Notification("Order #" + id + " đang được ship", "Phúc Long Coffee and Tea Express");
+                    Sender content = new Sender(serverToken.getToken(), notification);
 
-                apiService.sendNoti(content).enqueue(new Callback<MyResponse>() {
-                    @Override
-                    public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
-                        if (response.body().success == 1) {
+                    apiService.sendNoti(content).enqueue(new Callback<MyResponse>() {
+                        @Override
+                        public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                            if (response.body().success == 1) {
+                                Toast.makeText(context, "Order #" + id + " đang được ship", Toast.LENGTH_SHORT).show();
 
-                        } else {
-                            Toast.makeText(context, "Lỗi bất ngờ", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(context, "Lỗi bất ngờ", Toast.LENGTH_LONG).show();
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<MyResponse> call, Throwable t) {
-                        Log.e("Errorr", t.getMessage());
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<MyResponse> call, Throwable t) {
+                            Log.e("Errorr", t.getMessage());
+                        }
+                    });
+                }
             }
 
             @Override

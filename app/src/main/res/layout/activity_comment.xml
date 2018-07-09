@@ -7,6 +7,9 @@
     android:layout_height="match_parent"
     tools:context=".CommentActivity">
 
+    <include layout="@layout/feedback_empty_layout" android:id="@+id/empty_feedback"
+        ></include>
+
     <android.support.v7.widget.RecyclerView
         android:layout_above="@id/bot_bar"
         android:id="@+id/comment_list"

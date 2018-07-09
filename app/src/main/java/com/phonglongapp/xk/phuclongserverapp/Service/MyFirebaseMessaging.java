@@ -37,7 +37,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService  {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         if(remoteMessage.getData() != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
                 sendNoti(remoteMessage);
             }
             else{
